@@ -1,0 +1,36 @@
+# Note: 192.168.0.xxx is an example network, you must update all these to match your own.
+# More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
+version: "3"
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    hostname: pihole
+    domainname: sahays.in                    # <-- Update on enviromen.env file
+    networks:
+      MyMacVlan:                        # <-- MACVlan Name You need to create first in Portainer WebGUI.
+        ipv4_address: 192.168.66.2       # <-- Update to your desired Pihole IPv4
+    cap_add:
+      - NET_ADMIN # Recommended but not required (DHCP needs NET_ADMIN)  
+    ports: 
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"
+    environment:
+      ServerIP: 192.168.66.2             # <-- Update (match ipv4_address)
+      VIRTUAL_HOST: pihole.sahays.in    # <-- Update (match hostname + domainname)
+      WEBPASSWORD: "Mar@2015"         # <-- Add password (if required)
+      DNS1: 8.8.8.8
+      DNS2: 8.8.4.4                     # <-- Change by your prefered DNS service like 1.1.1.1
+      TZ: Asia/Kolkata                 # <-- You need to add in webGUI not here
+      # IPv6: False                     # <-- You need to add in webGUI not here
+    # Volumes store your data between container upgrades
+    volumes:
+      - /home/nsahay/pihole:/etc/pihole  # <-- Update to match your real path ; your_nas_path:/etc/pihole
+      - /home/nsahay/pihole/dnsmasq.d:/etc/dnsmasq.d # same here 
+#   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+    restart: unless-stopped
+
+networks:
+  MyMacVlan:
+    external: true
