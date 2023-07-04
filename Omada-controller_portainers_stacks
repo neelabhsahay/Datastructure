@@ -12,6 +12,8 @@ services:
     stop_grace_period: 60s
     #network_mode: host
     networks:
+      AmcVlanAdp:
+        ipv4_address: 192.168.0.18
       MacVlan:
         ipv4_address: 192.168.66.18
       default:
@@ -32,7 +34,7 @@ services:
       - SHOW_MONGODB_LOGS=false
       - SSL_CERT_NAME=tls.crt
       - SSL_KEY_NAME=tls.key
-      - TZ=Etc/UTC
+      - TZ=Asia/Kolkata
     volumes:
       - omada-data:/opt/tplink/EAPController/data
       - omada-logs:/opt/tplink/EAPController/logs
@@ -41,5 +43,7 @@ volumes:
   omada-data:
   omada-logs:
 networks:
+  AmcVlanAdp:
+    external: true
   MacVlan:
-    external: true 
+    external: true
