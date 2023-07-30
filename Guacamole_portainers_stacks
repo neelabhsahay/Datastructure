@@ -1,0 +1,20 @@
+# Note: 192.168.0.xxx is an example network, you must update all these to match your own.
+version: "3"
+services:
+  guacamole:
+    container_name: guacamole
+    image: abesnier/guacamole
+    hostname: guacamole
+    domainname: sahays.in                    # <-- Update on enviromen.env file
+    #networks:
+    #  MacVlan:                        # <-- MACVlan Name You need to create first in Portainer WebGUI.
+    #    ipv4_address: 192.168.66.14       # <-- Update to your desired Pihole IPv4
+    ports: 
+      - "8080:8080"
+    # Volumes store your data between container upgrades
+    volumes:
+      - /home/nsahay/guacamole:/config  # <-- Update to match your real path ; 
+    restart: unless-stopped
+#networks:
+#  MacVlan:
+#    external: true
