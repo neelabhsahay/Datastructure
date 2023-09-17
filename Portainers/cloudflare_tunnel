@@ -1,0 +1,21 @@
+version: "3.1"
+
+services:
+  cloudfare-controller:
+    container_name: tunnel_cloudflared
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token eyJhIjoiYjI3ZDk0YjFkMTEzMTlkMWQ0ZDY3ZTMxYzJlZjRhZjIiLCJ0IjoiMDcwYWUwOGYtNzhhNS00NzBiLTk0NDQtODU0MDViYzExN2U5IiwicyI6Ik9HTTFNbVUzWm1ZdFlXSmxOQzAwTlRnM0xUa3paR1F0WVRFeU9XUm1PVGs0T1dKbCJ9
+    #network_mode: host
+    networks:
+      MacVlanRemote:
+        ipv4_address: 192.168.33.3
+      default:
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+      - TZ=Asia/Kolkata
+
+networks:
+  MacVlanRemote:
+    external: true
