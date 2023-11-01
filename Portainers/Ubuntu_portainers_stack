@@ -1,0 +1,23 @@
+networks:
+  MacVlan:
+    external: true
+    name: "MacVlan"
+services:
+  ubuntu:
+    command:
+      - "/bin/bash"
+    container_name: "ubuntu"
+    environment:
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    hostname: "nsahay"
+    image: "ubuntu"
+    mac_address: "02:42:ac:11:00:03"
+    networks:
+      MacVlan:
+          ipv4_address: 192.168.66.10
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - "/ws/work:/home/nsahay"
+      - "/home/neelabh/compiler:/compiler"
+version: "3.6"
