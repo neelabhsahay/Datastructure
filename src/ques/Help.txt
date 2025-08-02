@@ -1,0 +1,1 @@
+for i in $(echo *.cpp); do echo -e "mv $i ${i%.*}.cc ";mv $i ${i%.*}.cc  ; done; echo ""

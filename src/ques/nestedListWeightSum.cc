@@ -8,13 +8,13 @@ using namespace std;
 int
 nestedListWeightSum(string &nestList)
 {
-    vector<int> values;
     int bracketCount = 0;
     int num;
+    int sum =0;
     for(auto s:nestList) {
         if (isdigit(s)) {
-            num = bracketCount* (s-'0');
-            values.push_back(num);
+            num = bracketCount* (s-'0');// cal culate the value inside a bracket
+            sum += num; // add the value to sum.
         } else if (s =='[') {
             bracketCount++;
         } else if (s == ']') {
@@ -22,11 +22,7 @@ nestedListWeightSum(string &nestList)
         }
     }
 
-    num = 0;
-    for(auto v:values) {
-        num += v;
-    }
-    return num;
+    return sum;
 }
 
 int
