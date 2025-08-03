@@ -6,13 +6,16 @@ OBJ_DIR = $(BUILD_DIR)/obj
 BIN_DIR = $(BUILD_DIR)/bin
 
 CC := g++ 
-CXX_FLAGS := -Wall -g
-LDFLAGS =
+CXX_FLAGS := -Wall -fPIC # -fPIC is crucial for shared libraries
+LD_FLAGS =
+LIB_FLAGS = -shared
 
 SRCS := $(subst :, ,$(FILE))
 
 OBJS := $(patsubst %.cc,$(OBJ_DIR)/%.o,$(SRCS))
 EXEC_NAME := $(patsubst %.cc,%, $(firstword $(SRCS)))
+LIB_NAME := $(patsubst %.cc,%.so, $(firstword $(SRCS)))
+LIB = $(BIN_DIR)/$(LIB_NAME)
 EXEC =  $(BIN_DIR)/$(EXEC_NAME)
 
 # Rule to compile the specified file
@@ -23,6 +26,10 @@ $(OBJS): $(OBJ_DIR)/%.o: %.cc
 $(EXEC): $(OBJS)
 	$(CC) $^ -o $@
 
+# Rule to make library
+$(LIB): $(OBJS)
+	$(CC) $(LIB_FLAGS) $< -o $@
+
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
 
@@ -30,7 +37,7 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 .SILENT:
-.PHONY: clean run build
+.PHONY: clean run build lib
 
 build:
 	@make $(BIN_DIR)
@@ -39,6 +46,11 @@ build:
 
 run: build
 	@$(EXEC)
+
+lib:
+	@make $(BIN_DIR)
+	@make $(OBJ_DIR)
+	@make $(LIB)
 
 clean:
 	@echo $(BUILD_DIR)
