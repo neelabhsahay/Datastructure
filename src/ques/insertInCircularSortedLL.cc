@@ -45,7 +45,9 @@ CLL::insertNode(int val) {
         head_->next(head_);
         return n;
     }
-    
+
+    // check that we reach the start or we found a place
+    // to insert the value.    
     while(t->next()->next() != head_ && t->next()->val() < val) {
         t = t->next();
     }

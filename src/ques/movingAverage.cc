@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 
+#include "utils.hpp"
+
 // given an num array and window size
 // return the average of all teh windows 
 std::vector<double>
@@ -29,12 +31,9 @@ movingAverage(std::vector<int> &nums, int k)
 int
 main()
 {
-     std::vector<int> data = {1,2,3,4,5,7};
+     std::vector<int> data = {5,2,8,14,3};
      int k = 3;
      std::vector<double> res = movingAverage(data, k); 
-     for(auto r:res) {
-         std::cout <<  r <<",";
-     }
-     std::cout <<"\n";
+     std::cout << res << "\n";
      return 0;
 }
