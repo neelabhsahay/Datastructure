@@ -5,7 +5,7 @@ set -e
 UBUNTU_VERSION="noble"  # Can be: jammy, focal, noble, etc.
 IMAGE_NAME="ubuntu.img"
 CLOUD_INIT_ISO="cloud-init.iso"
-VM_MEMORY="2048"
+VM_MEMORY="8192"
 VM_CPUS="2"
 SSH_PORT="2222"
 VM_USER="ubuntu"
@@ -88,5 +88,7 @@ qemu-system-x86_64 \
   -drive file="$CLOUD_INIT_ISO",format=raw \
   -netdev user,id=net0,hostfwd=tcp::${SSH_PORT}-:22 \
   -device virtio-net-pci,netdev=net0 \
+  -virtfs local,path=$HOME/shared_with_vm,mount_tag=host_share,security_model=mapped,id=fsdev0 \
+  -device virtio-9p-pci,fsdev=fsdev0,mount_tag=host_share \
   -nographic
 
