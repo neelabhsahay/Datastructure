@@ -31,6 +31,7 @@ left_and_right_view(TreeNode* root)
     TreeNode* n;
     vector<int> left_view;
     vector<int> right_view;
+    stack<int> left_view_stk;
 
     queue<TreeNode*> q;
 
@@ -67,8 +68,10 @@ left_and_right_view(TreeNode* root)
             n = q.front();
             q.pop();
 
-            if (i == 0)
+            if (i == 0) {
                 left_view.push_back(n->val());
+                left_view_stk.push(n->val());
+            }
             if (size == i + 1)
                 right_view.push_back(n->val());
 

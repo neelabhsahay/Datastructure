@@ -13,6 +13,15 @@ VM_PASSWORD="ubuntu"
 VM_USER2="neelabh"
 VM_PASSWORD2="passw0rd"
 
+# shared folder name
+SHARED_DIR=$HOME/share_with_vm
+SHARED_TAG="shared_data"
+
+if [ ! -d "$SHARED_DIR" ]; then
+    echo "[*] Shared folder doesn't exist, creating...."
+    mkdir -p "$SHARED_DIR"
+fi
+
 # === Paths ===
 CLOUD_IMAGE_URL="https://cloud-images.ubuntu.com/${UBUNTU_VERSION}/current/${UBUNTU_VERSION}-server-cloudimg-amd64.img"
 
@@ -88,7 +97,6 @@ qemu-system-x86_64 \
   -drive file="$CLOUD_INIT_ISO",format=raw \
   -netdev user,id=net0,hostfwd=tcp::${SSH_PORT}-:22 \
   -device virtio-net-pci,netdev=net0 \
-  -virtfs local,path=$HOME/shared_with_vm,mount_tag=host_share,security_model=mapped,id=fsdev0 \
-  -device virtio-9p-pci,fsdev=fsdev0,mount_tag=host_share \
+  -virtfs local,path=$SHARED_DIR,mount_tag=$SHARED_TAG,security_model=passthrough,id=hostshare \
   -nographic
 

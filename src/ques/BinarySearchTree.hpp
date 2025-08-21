@@ -23,6 +23,7 @@ public:
     int val() { return val_;}
 };
 
+// create binary search Tree
 class BST {
     TreeNode* root_;
     TreeNode* insert_helper(TreeNode* root, int val);
@@ -34,4 +35,19 @@ public:
     void print();
     TreeNode* find(int val); // return first occurance of the value 
 };
+
+#if 0
+// this creates binary tree using inorder
+class BIT {
+    TreeNode* root_;
+    TreeNode* insert_helper(TreeNode* root, int val);
+    void print_preorder(TreeNode* n);
+    TreeNode* find_helper(TreeNode* root, int val); // return first occurance of the value 
+public:
+    BIT(vector<int> &nums);
+    TreeNode* root() { return root_;}
+    void print();
+    TreeNode* find(int val); // return first occurance of the value
+};
+#endif
 #endif  //  __BINARY_SEARCH_TREE_HPP__
