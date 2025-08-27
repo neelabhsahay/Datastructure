@@ -6,10 +6,14 @@
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const std::vector<T>& data) {
     os << "[";
-    for(auto e:data) {
-        os << e <<",";
+    for(int i =0; i<data.size()-1; i++) {
+        os << data[i] <<",";
     }
-    os << "] ";
+    if(data.size()-1 >=0) {
+        os << data[data.size()-1] << "] ";
+    } else {
+        os << "] ";
+    }
     return os;
 }
 
@@ -19,7 +23,7 @@ std::ostream& operator<<(std::ostream& os, const std::vector<std::vector<T>>& ma
     for(auto row:matrix) {
         os <<"[";
         for(auto e:row) {
-            os << e <<",";
+            os << e <<" ";
         }
         os << "]";
     }

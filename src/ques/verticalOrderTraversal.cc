@@ -14,22 +14,10 @@
 #include<iostream>
 #include "BinarySearchTree.hpp"
 
+#include "utils.hpp"
+
 using namespace std;
 
-
-void
-print_vot(vector<vector<int>> &results)
-{
-    cout << "[";
-    for(auto result:results) {
-        cout << "[";
-        for(auto r:result) {
-            cout <<r <<",";
-        }
-        cout <<"], ";
-    }
-    cout <<"]\n";
-}
 
 void
 verticalOrderTraverseHelper(TreeNode* root, 
@@ -50,6 +38,8 @@ vector<vector<int>>
 verticalOrderTraverse(TreeNode* root)
 {
     vector<vector<int>> result;
+
+    // contain postion to value vector
     map<int, vector<int>> loc;
 
     verticalOrderTraverseHelper(root, loc, 0); 
@@ -69,7 +59,7 @@ main()
     
     tree.print();
     result = verticalOrderTraverse(tree.root());
-    print_vot(result);
+    cout << "Result : " << result << "\n";
     return 0;
 }
     

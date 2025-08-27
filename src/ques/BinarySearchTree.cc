@@ -37,22 +37,36 @@ BST::BST(vector<int> &nums) {
 }
 
 void
-BST::print_preorder(TreeNode* n)
+BST::print_preorder (ostream& os, TreeNode* n) const
 {
     if(n == nullptr) {
        return;
     }
-    cout << n->val() << ", ";
-    print_preorder(n->left());
-    print_preorder(n->right());
+    os << n->val() << ", ";
+    print_preorder(os, n->left());
+    print_preorder(os, n->right());
 }
 
 void
 BST::print()
 {
     cout <<"[";
-    print_preorder(root_);
+    print_preorder(cout, root_);
     cout <<"]\n";
+}
+
+void
+BST::print(ostream& os) const
+{
+    print_preorder(os, root_);
+}
+
+// Definition of the overloaded operator<<
+std::ostream& operator<<(ostream& os, const BST& obj) {
+    os <<"[";
+    obj.print(os);
+    os <<"]";
+    return os; // Return the ostream reference for chaining
 }
 
 TreeNode*

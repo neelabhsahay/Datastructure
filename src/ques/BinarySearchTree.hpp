@@ -20,34 +20,35 @@ public:
     TreeNode* left() {return left_;}
     TreeNode* right() {return right_;}
     TreeNode* parent() { return parent_;}
-    int val() { return val_;}
+    const int val() const { return val_;}
 };
 
 // create binary search Tree
 class BST {
     TreeNode* root_;
     TreeNode* insert_helper(TreeNode* root, int val);
-    void print_preorder(TreeNode* n);
+    void print_preorder(ostream& os, TreeNode* n) const;
     TreeNode* find_helper(TreeNode* root, int val); // return first occurance of the value 
 public:
     BST(vector<int> &nums);
-    TreeNode* root() { return root_;}
+    TreeNode* root() const { return root_;}
     void print();
+    void print(ostream& oc) const;
     TreeNode* find(int val); // return first occurance of the value 
+    // Declare the overloaded operator<< as a friend function
+    friend std::ostream& operator<<(ostream& os, const BST& obj);
 };
 
-#if 0
 // this creates binary tree using inorder
 class BIT {
     TreeNode* root_;
-    TreeNode* insert_helper(TreeNode* root, int val);
-    void print_preorder(TreeNode* n);
-    TreeNode* find_helper(TreeNode* root, int val); // return first occurance of the value 
+    void print_preorder(ostream& os, TreeNode* n) const;
 public:
     BIT(vector<int> &nums);
     TreeNode* root() { return root_;}
     void print();
-    TreeNode* find(int val); // return first occurance of the value
+    void print(ostream& oc) const;
+    // Declare the overloaded operator<< as a friend function
+    friend std::ostream& operator<<(ostream& os, const BIT& obj);
 };
-#endif
 #endif  //  __BINARY_SEARCH_TREE_HPP__
