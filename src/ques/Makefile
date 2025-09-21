@@ -7,28 +7,38 @@ BIN_DIR = $(BUILD_DIR)/bin
 LIB_DIR = $(BUILD_DIR)/libs
 
 CC := g++ 
+CXX := gcc
 CXX_FLAGS := -Wall -fPIC # -fPIC is crucial for shared libraries
 LD_FLAGS =
 LIB_FLAGS = -shared -dIS_LIB
 
-SRCS := $(subst :, ,$(FILE))
 
-OBJS := $(patsubst %.cc,$(OBJ_DIR)/%.o,$(SRCS))
+SRCS := $(subst :, ,$(FILE))
+C_FILES = $(filter %.c, $(SRCS))
+CPP_FILES = $(filter %.cpp, $(SRCS))
+CC_FILES = $(filter %.cc, $(SRCS))
+
+OBJS_CC := $(patsubst %.cc,$(OBJ_DIR)/%.o,$(CC_FILES))
+OBJS_C := $(patsubst %.c,$(OBJ_DIR)/%.o,$(C_FILES))
 EXEC_NAME := $(patsubst %.cc,%, $(firstword $(SRCS)))
 LIB_NAME := $(patsubst %.cc,%.so, $(firstword $(SRCS)))
 LIB = $(LIB_DIR)/$(LIB_NAME)
 EXEC =  $(BIN_DIR)/$(EXEC_NAME)
 
 # Rule to compile the specified file
-$(OBJS): $(OBJ_DIR)/%.o: %.cc
+$(OBJS_CC): $(OBJ_DIR)/%.o: %.cc
 	$(CC) $(CXX_FLAGS) -c $< -o $@
 
+# Rule to compile the specified file
+$(OBJS_C): $(OBJ_DIR)/%.o: %.c
+	$(CXX) $(CXX_FLAGS) -c $< -o $@
+
 # Rule to link the object file
-$(EXEC): $(OBJS)
+$(EXEC): $(OBJS_CC) $(OBJS_C)
 	$(CC) $^ -o $@
 
 # Rule to make library
-$(LIB): $(OBJS)
+$(LIB): $(OBJS_CC) $(OBJS_C)
 	$(CC) $(LIB_FLAGS) $< -o $@
 
 $(LIB_DIR):

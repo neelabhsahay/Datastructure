@@ -28,7 +28,8 @@ nestedListWeightSum(string &nestList)
 int
 main()
 {
-    string nestList = "[1,[4,[6]]]"; // "[[1,1],2,[1,1]]"; //"[1, [2, 2], [[3, 7], 2], 1]";
+    //string nestList = "[1,[4,[6]]]"; // "[[1,1],2,[1,1]]"; //"[1, [2, 2], [[3, 7], 2], 1]";
+    string nestList = "[[1,1],2,[1,1]]"; //"[1,[4,[6]]]"; // "[[1,1],2,[1,1]]"; //"[1, [2, 2], [[3, 7], 2], 1]";
     int result = nestedListWeightSum(nestList);
     cout << "Value of \"" <<  nestList << "\" is: " << result <<"\n"; 
     return 0;

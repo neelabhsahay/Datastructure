@@ -41,8 +41,8 @@ numSeqOnes(const void* data)
 int
 main()
 {
-    //uint64_t data = 0xfff6fffff7ffffff;
-    uint64_t data = 0x3f4a6cb37cd19830;
+    uint64_t data = 0xfff6fffff7ffffff;
+    //uint64_t data = 0x3f4a6cb37cd19830;
     //uint64_t data = 5;
 
     int res = numSeqOnes(&data);
